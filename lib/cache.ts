@@ -35,9 +35,6 @@ export async function connect(): Promise<void> {
   const db = (await clientPromise).db();
   mongoCollection = db.collection("cache");
   await mongoCollection.createIndex({ expire: 1 }, { expireAfterSeconds: 0 });
-  const now = Date.now();
-  const res = await db.command({ hostInfo: 1 });
-  mongoTimeOffset = res.system.currentTime.getTime() - now;
 }
 
 export async function disconnect(): Promise<void> {
